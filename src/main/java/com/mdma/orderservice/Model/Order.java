@@ -12,9 +12,17 @@ import java.util.UUID;
 @Document
 public class Order {
     @Id
-    private UUID id;
-    private UUID tableId;
+    private String id;
+    private String tableId;
     private List<Product> productList;
     private Double orderAmount;
     private OrderStatus orderStatus;
+
+    public Order(String id, String tableId, List<Product> productList, Double orderAmount, OrderStatus orderStatus) {
+        this.id = id;
+        this.tableId = tableId;
+        this.productList = productList;
+        this.orderAmount = orderAmount;
+        this.orderStatus = orderStatus;
+    }
 }
