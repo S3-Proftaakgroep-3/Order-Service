@@ -25,4 +25,10 @@ public class OrderController {
     public ResponseEntity<String> createOrder(@RequestBody Order order) {
         return orderService.postOrder(order);
     }
+
+    @GetMapping("/restaurantId/{restaurantId}/tableId/{tableId}")
+    public ResponseEntity<List<Order>> FetchAllOrdersFromTable(@PathVariable String restaurantId, @PathVariable String tableId) {
+        return orderService.GetAllOrdersFromTable(restaurantId, tableId);
+    }
+
 }

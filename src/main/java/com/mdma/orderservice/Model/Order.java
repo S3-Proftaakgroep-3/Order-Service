@@ -14,6 +14,7 @@ public class Order {
     @Id
     private String id;
     private String tableId;
+    private String restaurantId;
     private List<Product> productList;
     private Double orderAmount;
     private OrderStatus orderStatus;

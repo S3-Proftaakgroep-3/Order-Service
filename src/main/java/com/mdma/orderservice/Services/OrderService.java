@@ -15,14 +15,14 @@ import java.util.List;
 @Service
 public class OrderService {
 
-    private final OrderRepository OrderRepository;
+    private final OrderRepository orderRepository;
 
     public ResponseEntity<List<Order>> GetAllOrders(){
-        return new ResponseEntity<List<Order>>(OrderRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<List<Order>>(orderRepository.findAll(), HttpStatus.OK);
     }
 
     public ResponseEntity<String> postOrder(Order order) {
-        if(OrderRepository.save(order) == order) {
+        if(orderRepository.save(order) == order) {
             return new ResponseEntity<String>("Order has been saved", HttpStatus.OK);
         } else
             return new ResponseEntity<String>("Order hasn't been saved", HttpStatus.BAD_REQUEST);
@@ -30,7 +30,12 @@ public class OrderService {
     }
 
     public ResponseEntity<Boolean> deleteOrder(String id) {
-        OrderRepository.deleteById(id);
+        orderRepository.deleteById(id);
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<Order>> GetAllOrdersFromTable(String restaurantId, String tableId) {
+        List<Order> orders = orderRepository.findOrdersByRestaurantIdAndTableId(restaurantId, tableId);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 }
