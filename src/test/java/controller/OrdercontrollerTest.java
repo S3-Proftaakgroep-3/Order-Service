@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
-public class OrderControllerTest {
+class OrderControllerTest {
 
     @Mock
     private OrderRepository orderRepository;
