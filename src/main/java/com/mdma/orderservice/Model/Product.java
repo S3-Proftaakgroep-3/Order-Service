@@ -5,19 +5,17 @@ import org.springframework.data.annotation.Id;
 
 @Data
 public class Product {
-    @Id
-    private String id;
     private String name;
-    private String description;
+    private String message;
     private Double price;
     private String size;
-    private Boolean active;
+    private int quantity;
 
-    public Product(String name, String description, Double price, String size, Boolean active) {
+    public Product(String name, String message, Double price, String size, int quantity) {
         this.name = name;
-        this.description = description;
+        this.message = message;
         this.price = price;
         this.size = size;
-        this.active = active;
+        this.quantity = quantity;
     }
 }
