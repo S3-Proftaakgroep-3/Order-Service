@@ -2,7 +2,6 @@ package com.mdma.orderservice.Model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import com.mdma.orderservice.Enum.ProductSize;
 
 @Data
 public class Product {
@@ -11,10 +10,10 @@ public class Product {
     private String name;
     private String description;
     private Double price;
-    private ProductSize size;
+    private String size;
     private Boolean active;
 
-    public Product(String name, String description, Double price, ProductSize size, Boolean active) {
+    public Product(String name, String description, Double price, String size, Boolean active) {
         this.name = name;
         this.description = description;
         this.price = price;
