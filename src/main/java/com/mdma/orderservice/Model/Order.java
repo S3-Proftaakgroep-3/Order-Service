@@ -18,10 +18,10 @@ public class Order {
     private List<Product> products;
     private OrderStatus orderStatus;
 
-    public Order(String id, String tableId, List<Product> productList, OrderStatus orderStatus) {
+    public Order(String id, String tableId, List<Product> products, OrderStatus orderStatus) {
         this.id = id;
         this.tableId = tableId;
-        this.products = productList;
+        this.products = products;
         this.orderStatus = orderStatus;
     }
 }
