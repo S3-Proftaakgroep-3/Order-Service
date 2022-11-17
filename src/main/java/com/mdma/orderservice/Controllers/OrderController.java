@@ -33,6 +33,11 @@ public class OrderController {
         return orderService.GetAllOrdersFromTable(restaurantId, tableId);
     }
 
+    @GetMapping("/{restaurantId}/all")
+    public ResponseEntity<List<Order>> getAllOrdersFromRestaurant(@PathVariable String restaurantId){
+        return orderService.GetAllOrdersFromRestaurant(restaurantId);
+    }
+
     @DeleteMapping("/delete")
     public ResponseEntity<Boolean> deleteOrder(@RequestParam String id)
     {

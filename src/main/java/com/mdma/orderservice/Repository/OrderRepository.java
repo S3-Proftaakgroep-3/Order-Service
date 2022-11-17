@@ -9,4 +9,5 @@ import java.util.List;
 public interface OrderRepository extends MongoRepository<Order, String> {
     List<Order> findOrdersByRestaurantIdAndTableId(String restaurantId, String tableId);
 
+    List<Order> findOrdersByRestaurantId(String restaurantId);
 }
