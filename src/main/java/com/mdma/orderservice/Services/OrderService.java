@@ -38,4 +38,9 @@ public class OrderService {
         List<Order> orders = orderRepository.findOrdersByRestaurantIdAndTableId(restaurantId, tableId);
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
+
+    public ResponseEntity<List<Order>> GetAllOrdersFromRestaurant(String restaurantId) {
+        List<Order> orders = orderRepository.findOrdersByRestaurantId(restaurantId);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
 }

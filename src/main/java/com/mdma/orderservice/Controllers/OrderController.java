@@ -22,6 +22,12 @@ public class OrderController {
         return orderService.GetAllOrders();
     }
 
+    @GetMapping("/all/{restaurantId}")
+    public ResponseEntity<List<Order>> getAllOrdersFromTable(@PathVariable String restaurantId)
+    {
+        return orderService.GetAllOrdersFromTable()
+    }
+
     @PostMapping("/create")
     public ResponseEntity<String> createOrder(@RequestBody Order order) {
         return orderService.postOrder(order);
@@ -37,6 +43,5 @@ public class OrderController {
     {
         return orderService.deleteOrder(id);
     }
-
 
 }
