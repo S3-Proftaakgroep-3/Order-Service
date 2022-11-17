@@ -40,7 +40,13 @@ public class OrderService {
     }
 
     public ResponseEntity<List<Order>> GetAllOrdersFromRestaurant(String restaurantId) {
+
         List<Order> orders = orderRepository.findOrdersByRestaurantId(restaurantId);
-        return new ResponseEntity<>(orders, HttpStatus.OK);
+
+        if (!orders.isEmpty()){
+            return new ResponseEntity<>(orders, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+
     }
 }
