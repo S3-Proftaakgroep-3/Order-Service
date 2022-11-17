@@ -26,7 +26,7 @@ public class OrderController {
     @GetMapping("/all/{restaurantId}")
     public ResponseEntity<List<Order>> getAllOrdersFromTable(@PathVariable String restaurantId)
     {
-        return orderService.GetAllOrdersFromTable()
+        return orderService.GetAllOrdersFromRestaurant(restaurantId);
     }
 
     @PostMapping("/create")
