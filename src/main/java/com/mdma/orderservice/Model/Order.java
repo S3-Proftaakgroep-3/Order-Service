@@ -15,15 +15,13 @@ public class Order {
     private String id;
     private String tableId;
     private String restaurantId;
-    private List<Product> productList;
-    private Double orderAmount;
+    private List<Product> products;
     private OrderStatus orderStatus;
 
-    public Order(String id, String tableId, List<Product> productList, Double orderAmount, OrderStatus orderStatus) {
+    public Order(String id, String tableId, List<Product> products, OrderStatus orderStatus) {
         this.id = id;
         this.tableId = tableId;
-        this.productList = productList;
-        this.orderAmount = orderAmount;
+        this.products = products;
         this.orderStatus = orderStatus;
     }
 }

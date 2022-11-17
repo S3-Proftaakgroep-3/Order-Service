@@ -47,7 +47,7 @@ class OrderControllerTest {
     {
         // for given input
         List<Product> productList = new ArrayList<>();
-        Order order = new Order("Kaas123", "Kaastafel1", productList, 20.00, null);
+        Order order = new Order("Kaas123", "Kaastafel1", productList,  null);
 
         // when the desired action performed
         underTest.postOrder(order);
