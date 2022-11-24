@@ -2,7 +2,7 @@ name: Push Image To Azure
 
 on:
   push:
-    branches: ["main", "dev"]
+    branches: ["main", "dev", "azure"]
 
 env:
   IMAGE_NAME: orderservice
