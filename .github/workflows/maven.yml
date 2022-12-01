@@ -2,7 +2,7 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: ["dev"]
+    branches: ["dev", "fixWorkflow"]
   pull_request:
     branches: [ "main","dev" ]
 
@@ -10,7 +10,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    env:
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 18
@@ -20,4 +21,4 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Test with maven
-      run: mvn -B test
+      run: mvn -B package --file pom.xml
