@@ -1,6 +1,5 @@
 package com.mdma.orderservice.Model;
 
-import com.mdma.orderservice.Enum.OrderStatus;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

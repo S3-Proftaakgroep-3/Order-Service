@@ -1,10 +1,8 @@
 package com.mdma.orderservice.Services;
 
 import com.mdma.orderservice.Model.Order;
-import com.mdma.orderservice.Model.Product;
 import com.mdma.orderservice.Repository.OrderRepository;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -48,5 +46,23 @@ public class OrderService {
         }
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 
+    }
+
+    public ResponseEntity<String> updateOrder(String orderId, Order order){
+        order.setId(orderId);
+        if(orderRepository.findById(orderId).isPresent()){
+            if(orderRepository.save(order) == order){
+                return new ResponseEntity<>("Order has been updated", HttpStatus.OK);
+            }
+            else
+                return new ResponseEntity<>("Order failed to updated", HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>("Order hasn't been updated: Order not found", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public ResponseEntity<List<Order>> GetAllReadyOrdersFromRestaurant(String restaurantId, String orderStatus) {
+        return new ResponseEntity<List<Order>>(orderRepository.findOrdersByRestaurantIdAndOrderStatus(restaurantId,orderStatus),HttpStatus.OK);
     }
 }
