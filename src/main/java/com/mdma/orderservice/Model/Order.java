@@ -1,6 +1,5 @@
 package com.mdma.orderservice.Model;
 
-import com.mdma.orderservice.Enum.OrderStatus;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,9 +15,9 @@ public class Order {
     private String tableId;
     private String restaurantId;
     private List<Product> products;
-    private OrderStatus orderStatus;
+    private String orderStatus;
 
-    public Order(String id, String tableId, List<Product> products, OrderStatus orderStatus) {
+    public Order(String id, String tableId, List<Product> products, String orderStatus) {
         this.id = id;
         this.tableId = tableId;
         this.products = products;

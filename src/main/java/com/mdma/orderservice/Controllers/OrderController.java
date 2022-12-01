@@ -1,10 +1,8 @@
 package com.mdma.orderservice.Controllers;
 
 import com.mdma.orderservice.Model.Order;
-import com.mdma.orderservice.Model.Product;
 import com.mdma.orderservice.Services.OrderService;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,10 +21,12 @@ public class OrderController {
         return orderService.GetAllOrders();
     }
 
-    @GetMapping("/all/{restaurantId}")
-    public ResponseEntity<List<Order>> getAllOrdersFromTable(@PathVariable String restaurantId)
-    {
-        return orderService.GetAllOrdersFromRestaurant(restaurantId);
+    @GetMapping("/all/{restaurantId}/{orderStatus}")
+    public ResponseEntity<List<Order>> getAllReadyOrdersFromRestaurant(@PathVariable String restaurantId, @PathVariable String orderStatus){ return orderService.GetAllReadyOrdersFromRestaurant(restaurantId,orderStatus);}
+
+    @PutMapping("/update/{Id}")
+    public ResponseEntity<String> UpdateOrder(@PathVariable String Id, @RequestBody Order order){
+        return orderService.updateOrder(Id, order);
     }
 
     @PostMapping("/create")
