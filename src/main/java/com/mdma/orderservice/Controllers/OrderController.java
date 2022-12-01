@@ -4,7 +4,6 @@ import com.mdma.orderservice.Model.Order;
 import com.mdma.orderservice.Services.OrderService;
 import lombok.AllArgsConstructor;
 
-import org.apache.coyote.Response;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,6 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 @CrossOrigin
 @RestController
