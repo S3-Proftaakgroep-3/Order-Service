@@ -16,9 +16,9 @@ public class Order {
     private String tableId;
     private String restaurantId;
     private List<Product> products;
-    private OrderStatus orderStatus;
+    private String orderStatus;
 
-    public Order(String id, String tableId, List<Product> products, OrderStatus orderStatus) {
+    public Order(String id, String tableId, List<Product> products, String orderStatus) {
         this.id = id;
         this.tableId = tableId;
         this.products = products;
