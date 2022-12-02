@@ -71,6 +71,11 @@ public class OrderController {
         return orderService.GetAllOrders();
     }
 
+    @GetMapping("/all/{restaurantId}/{orderStatus}")
+    public ResponseEntity<List<Order>> getAllReadyOrdersFromRestaurant(@PathVariable String restaurantId, @PathVariable String orderStatus){
+        return orderService.GetAllReadyOrdersFromRestaurant(restaurantId,orderStatus);
+    }
+
     @GetMapping("/all/{restaurantId}")
     public ResponseEntity<List<Order>> getAllOrdersFromTable(@PathVariable String restaurantId)
     {
