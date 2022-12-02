@@ -3,6 +3,7 @@ package com.mdma.orderservice.Controllers;
 import com.mdma.orderservice.Model.Message;
 import com.mdma.orderservice.Model.Order;
 import com.mdma.orderservice.Services.OrderService;
+import com.mdma.orderservice.Services.SseEmitterService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,49 +22,12 @@ import java.util.Objects;
 public class OrderController {
 
     private final OrderService orderService;
-    public List<Message> subscribers;
+    private final SseEmitterService emitterService;
 
-    @GetMapping(value = "/subscribe/{restaurantId}", consumes = MediaType.ALL_VALUE)
-    public SseEmitter subscribe(@PathVariable String restaurantId) {
-        SseEmitter sseEmitter = new SseEmitter(Long.MAX_VALUE);
-        try {
-            sseEmitter.send(SseEmitter.event().name("INIT"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        sseEmitter.onCompletion(() -> {
-            int index = -1;
-            for (int i = 0; i < subscribers.size(); i++) {
-                if (subscribers.get(i).emitter == sseEmitter) {
-                    index = i;
-                }
-            }
-            if (index != -1) {
-                subscribers.remove(index);
-            }
-        });
 
-        subscribers.add(new Message(sseEmitter, restaurantId));
-        return sseEmitter;
-    }
-
-    private void SendMessage(String restaurantId, List<Order> orders) {
-        List<Integer> indexesToRemove = new ArrayList<>();
-        for (int i = 0; i < subscribers.size(); i++) {
-            try {
-                if (Objects.equals(restaurantId, orders.get(0).getRestaurantId())) {
-                    if (Objects.equals(restaurantId, subscribers.get(i).getRestaurantId())) {
-                        subscribers.get(i).emitter.send(SseEmitter.event().name("Latest's Orders").data(orders));
-                    }
-                }
-            } catch (IOException e) {
-                indexesToRemove.add(i);
-            }
-        }
-
-        for (int i = indexesToRemove.size() -1; i > 0 ; i--) {
-            subscribers.remove(indexesToRemove.get(i));
-        }
+    @GetMapping(value = "/subscribe/{restaurantId}/status/{status}", consumes = MediaType.ALL_VALUE)
+    public SseEmitter subscribe(@PathVariable String restaurantId, @PathVariable String status) {
+        return emitterService.subscribe(restaurantId, status);
     }
 
     @GetMapping("/all")
@@ -86,7 +50,7 @@ public class OrderController {
     public ResponseEntity<String>  createOrder(@RequestBody Order order) {
         ResponseEntity<String> newOrder = orderService.postOrder(order);
         ResponseEntity<List<Order>> orders = getAllOrdersFromRestaurant(order.getRestaurantId());
-        SendMessage(order.getRestaurantId(), orders.getBody());
+        emitterService.SendMessage(order.getRestaurantId(), orders.getBody());
         return newOrder;
     }
 
