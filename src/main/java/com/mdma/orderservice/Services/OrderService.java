@@ -20,6 +20,7 @@ public class OrderService {
     }
 
     public ResponseEntity<String> postOrder(Order order) {
+        order.setOrderStatus(order.getOrderStatus().toLowerCase());
         if(orderRepository.save(order) == order) {
             return new ResponseEntity<String>("Order has been saved", HttpStatus.OK);
         } else

@@ -42,7 +42,7 @@ public class SseEmitterService {
                 if (Objects.equals(restaurantId, orders.get(0).getRestaurantId())) {
                     if (Objects.equals(restaurantId, subscribers.get(i).getRestaurantId())) {
                         int finalI = i;
-                        List<Order> filteredOrders = orders.stream().filter(x -> Objects.equals(x.getOrderStatus(), subscribers.get(finalI).getStatus())).toList();
+                        List<Order> filteredOrders = orders.stream().filter(x -> Objects.equals(x.getOrderStatus().toLowerCase(), subscribers.get(finalI).getStatus().toLowerCase())).toList();
                         subscribers.get(i).emitter.send(SseEmitter.event().name("Latest's Orders").data(filteredOrders));
                     }
                 }
