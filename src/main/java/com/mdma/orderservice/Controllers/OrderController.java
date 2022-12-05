@@ -33,6 +33,7 @@ public class OrderController {
 
     @GetMapping("/all/{restaurantId}/{orderStatus}")
     public ResponseEntity<List<Order>> getAllReadyOrdersFromRestaurant(@PathVariable String restaurantId, @PathVariable String orderStatus){
+        orderStatus = orderStatus.toLowerCase();
         return orderService.GetAllReadyOrdersFromRestaurant(restaurantId,orderStatus);
     }
 

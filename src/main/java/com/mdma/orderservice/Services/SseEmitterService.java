@@ -39,10 +39,10 @@ public class SseEmitterService {
         List<Integer> indexesToRemove = new ArrayList<>();
         for (int i = 0; i < subscribers.size(); i++) {
             try {
-                if (Objects.equals(restaurantId.toUpperCase(), orders.get(0).getRestaurantId().toUpperCase())) {
-                    if (Objects.equals(restaurantId.toUpperCase(), subscribers.get(i).getRestaurantId().toUpperCase())) {
+                if (Objects.equals(restaurantId, orders.get(0).getRestaurantId())) {
+                    if (Objects.equals(restaurantId, subscribers.get(i).getRestaurantId())) {
                         int finalI = i;
-                        List<Order> filteredOrders = orders.stream().filter(x -> Objects.equals(x.getOrderStatus().toUpperCase(), subscribers.get(finalI).getStatus().toUpperCase())).toList();
+                        List<Order> filteredOrders = orders.stream().filter(x -> Objects.equals(x.getOrderStatus().toLowerCase(), subscribers.get(finalI).getStatus().toLowerCase())).toList();
                         subscribers.get(i).emitter.send(SseEmitter.event().name("Latest's Orders").data(filteredOrders));
                     }
                 }
