@@ -1,6 +1,5 @@
 package com.mdma.orderservice.Controllers;
 
-import com.mdma.orderservice.Model.Message;
 import com.mdma.orderservice.Model.Order;
 import com.mdma.orderservice.Services.OrderService;
 import com.mdma.orderservice.Services.SseEmitterService;
@@ -10,10 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @CrossOrigin
 @RestController
