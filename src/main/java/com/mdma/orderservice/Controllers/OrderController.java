@@ -67,4 +67,9 @@ public class OrderController {
         return orderService.deleteOrder(id);
     }
 
+    @PutMapping("/update/{Id}")
+    public ResponseEntity<String> UpdateOrder(@PathVariable String Id, @RequestBody Order order){
+        return orderService.updateOrder(Id, order);
+    }
+
 }
