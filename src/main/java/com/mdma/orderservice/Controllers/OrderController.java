@@ -28,7 +28,7 @@ public class OrderController {
 
     @GetMapping("/all")
     public ResponseEntity<List<Order>> FetchAllProducts() {
-        return orderService.GetAllOrders();
+        return orderService.getAllOrders();
     }
 
     @GetMapping("/all/{restaurantId}/{orderStatus}")
@@ -40,7 +40,7 @@ public class OrderController {
     @GetMapping("/all/{restaurantId}")
     public ResponseEntity<List<Order>> getAllOrdersFromTable(@PathVariable String restaurantId)
     {
-        return orderService.GetAllOrdersFromRestaurant(restaurantId);
+        return orderService.getAllOrdersFromRestaurant(restaurantId);
     }
 
     @PostMapping("/create")
@@ -53,12 +53,12 @@ public class OrderController {
 
     @GetMapping("/restaurantId/{restaurantId}/tableId/{tableId}")
     public ResponseEntity<List<Order>> getAllOrdersFromTable(@PathVariable String restaurantId, @PathVariable String tableId) {
-        return orderService.GetAllOrdersFromTable(restaurantId, tableId);
+        return orderService.getAllOrdersFromTable(restaurantId, tableId);
     }
 
     @GetMapping("/{restaurantId}/all")
     public ResponseEntity<List<Order>> getAllOrdersFromRestaurant(@PathVariable String restaurantId){
-        return orderService.GetAllOrdersFromRestaurant(restaurantId);
+        return orderService.getAllOrdersFromRestaurant(restaurantId);
     }
 
     @DeleteMapping("/delete")
@@ -67,9 +67,10 @@ public class OrderController {
         return orderService.deleteOrder(id);
     }
 
-    @PutMapping("/update/{Id}")
-    public ResponseEntity<String> UpdateOrder(@PathVariable String Id, @RequestBody Order order){
+    @PutMapping("/update/{Id}/{orderStatus}")
+    public ResponseEntity<String> UpdateOrder(@PathVariable String Id,@PathVariable String orderStatus, @RequestBody Order order){
+        order = orderService.getSpecificOrder(Id);
+        order.setOrderStatus(orderStatus);
         return orderService.updateOrder(Id, order);
     }
-
 }

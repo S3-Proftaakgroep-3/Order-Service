@@ -5,17 +5,14 @@ import static org.mockito.Mockito.verify;
 
 import com.mdma.orderservice.Model.Order;
 import com.mdma.orderservice.Model.Product;
-import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.exceptions.base.MockitoException;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.mdma.orderservice.Repository.OrderRepository;
-import com.mdma.orderservice.Repository.RestaurantRepository;
 import com.mdma.orderservice.Services.OrderService;
 
 import java.util.ArrayList;
@@ -36,7 +33,7 @@ class OrderControllerTest {
     @Test
     void getAllOrders() {
         // when the desired action performed
-        underTest.GetAllOrders();
+        underTest.getAllOrders();
 
         // then verify
         verify(orderRepository).findAll();
@@ -79,7 +76,7 @@ class OrderControllerTest {
     void shouldGetAllOrdersFromTable()
     {
         // when the desired action performed
-        underTest.GetAllOrdersFromTable("Kaas123", "Kaastafel123");
+        underTest.getAllOrdersFromTable("Kaas123", "Kaastafel123");
 
         //then verify
         verify(orderRepository).findOrdersByRestaurantIdAndTableId("Kaas123", "Kaastafel123");

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -15,7 +16,11 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    public ResponseEntity<List<Order>> GetAllOrders(){
+    public Order getSpecificOrder(String orderId){
+        return orderRepository.findOrderById(orderId);
+    }
+
+    public ResponseEntity<List<Order>> getAllOrders(){
         return new ResponseEntity<List<Order>>(orderRepository.findAll(), HttpStatus.OK);
     }
 
@@ -33,12 +38,12 @@ public class OrderService {
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
 
-    public ResponseEntity<List<Order>> GetAllOrdersFromTable(String restaurantId, String tableId) {
+    public ResponseEntity<List<Order>> getAllOrdersFromTable(String restaurantId, String tableId) {
         List<Order> orders = orderRepository.findOrdersByRestaurantIdAndTableId(restaurantId, tableId);
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
-    public ResponseEntity<List<Order>> GetAllOrdersFromRestaurant(String restaurantId) {
+    public ResponseEntity<List<Order>> getAllOrdersFromRestaurant(String restaurantId) {
 
         List<Order> orders = orderRepository.findOrdersByRestaurantId(restaurantId);
 
