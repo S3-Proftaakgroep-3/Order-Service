@@ -54,9 +54,8 @@ public class OrderService {
 
     }
 
-    public ResponseEntity<String> updateOrder(String orderId, Order order){
-        order.setId(orderId);
-        if(orderRepository.findById(orderId).isPresent()){
+    public ResponseEntity<String> updateOrder(Order order){
+        if(orderRepository.findById(order.getId()).isPresent()){
             if(orderRepository.save(order) == order){
                 return new ResponseEntity<>("Order has been updated", HttpStatus.OK);
             }

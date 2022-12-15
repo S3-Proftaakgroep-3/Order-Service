@@ -13,7 +13,7 @@ public class SseEmitterService {
     private final List<Message> subscribers = new ArrayList<>();
 
     public SseEmitter subscribe(String restaurantId, String status) {
-        SseEmitter sseEmitter = new SseEmitter(Long.MAX_VALUE);
+        SseEmitter sseEmitter = new SseEmitter(-1L);
         try {
             sseEmitter.send(SseEmitter.event().name("INIT"));
         } catch (IOException e) {
@@ -41,9 +41,15 @@ public class SseEmitterService {
             try {
                 if (Objects.equals(restaurantId, orders.get(0).getRestaurantId())) {
                     if (Objects.equals(restaurantId, subscribers.get(i).getRestaurantId())) {
-                        int finalI = i;
-                        List<Order> filteredOrders = orders.stream().filter(x -> Objects.equals(x.getOrderStatus().toLowerCase(), subscribers.get(finalI).getStatus().toLowerCase())).toList();
-                        subscribers.get(i).emitter.send(SseEmitter.event().name("Latest's Orders").data(filteredOrders));
+                        if (subscribers.get(i).status.equals("preparing")) {
+                            List<Order> filteredOrders = orders.stream().filter(x -> Objects.equals(x.getOrderStatus().toLowerCase(), "preparing")).toList();
+                            subscribers.get(i).emitter.send(SseEmitter.event().name("Latest's Orders").data(filteredOrders));
+                        }
+
+                        if (subscribers.get(i).status.equals("ready")) {
+                            List<Order> filteredOrders = orders.stream().filter(x -> Objects.equals(x.getOrderStatus().toLowerCase(), "ready")).toList();
+                            subscribers.get(i).emitter.send(SseEmitter.event().name("Latest's Orders").data(filteredOrders));
+                        }
                     }
                 }
             } catch (IOException e) {
