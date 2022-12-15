@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.List;
+import java.util.Objects;
 
 @CrossOrigin
 @RestController
@@ -67,10 +68,18 @@ public class OrderController {
         return orderService.deleteOrder(id);
     }
 
-    @PutMapping("/update/{Id}/{orderStatus}")
-    public ResponseEntity<String> UpdateOrder(@PathVariable String Id,@PathVariable String orderStatus, @RequestBody Order order){
-        order = orderService.getSpecificOrder(Id);
-        order.setOrderStatus(orderStatus);
-        return orderService.updateOrder(Id, order);
+    @PutMapping("/update")
+    public ResponseEntity<String> UpdateOrder(@RequestBody Order order){
+        if (Objects.equals(order.getOrderStatus(), "preparing")) {
+            order.setOrderStatus("ready");
+        } else {
+            order.setOrderStatus("received");
+        }
+
+        ResponseEntity<String> newOrder = orderService.updateOrder(order);
+        ResponseEntity<List<Order>> orders = getAllOrdersFromRestaurant(order.getRestaurantId());
+        emitterService.SendMessage(order.getRestaurantId(), orders.getBody());
+
+        return newOrder;
     }
 }
